@@ -1,0 +1,84 @@
+Project social_blogging_site {
+  database_type: 'PostgreSQL'
+  Note: 'Project Proj-Director'
+  //used: https://dbdiagram.io to create
+}
+
+Table Company {
+  id integer [primary key]
+  name varchar(30)
+}
+
+Table User {
+  id integer [primary key]
+  email varchar(30) [unique, not null]
+  password varchar(30)
+  company integer [ref: > Company.id]
+  
+  Note: '''
+    User also has access to the RFI_User
+    and User_Job tables
+  '''
+}
+
+Table InviteToken {
+  id integer [primary key]
+  t_user integer [ref: - User.id]
+  token varchar(10)
+  data_created datetime
+}
+
+Table User_Job {
+  id integer [primary key]
+  user_id integer [ref:  > User.id]
+  job_id integer [ref: > Job.id]
+  
+  
+  Note: '''
+    Serves as an associative table for tables User
+    and Job.
+    Represents many to many relationship
+    between User and Job
+    '''
+}
+
+Table Job {
+  id integer [primary key]
+  name varchar(50) [unique]
+  //assigned_users = User_Job
+  date_created datetime
+}
+
+Table User_RFI {
+  id integer [primary key]
+  user integer [ref: > User.id]
+  rfi integer [ref: > RFI.id]
+  has_unread_responses boolean
+  
+  
+  Note: '''
+    Serves as an associative table for tables User
+    and RFI
+    Represents many to many relationship
+    between User and RFI
+    '''
+}
+
+Table RFI {
+  id integer [primary key]
+  f_user integer [ref: > User.id]
+  //to_user = User_RFI table
+  job_key integer [ref: > Job.id]
+  subject varchar(120)
+  body longtext
+  date_created datetime
+  closed boolean
+}
+
+Table Response {
+  id integer [primary key]
+  rfi integer [ref: > RFI.id]
+  subject varchar(120)
+  body longtext
+  date_created datetime
+}

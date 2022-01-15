@@ -1,0 +1,21 @@
+{
+  "git.ignoreLimitWarning": true,
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "editor.formatOnSave": true,
+  "python.pythonPath": "app\\env\\Scripts\\python.exe",
+  "python.sortImports.args": ["--profile=black"],
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length=119"],
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/**/*.html": "django-html",
+    "**/templates/**/*": "django-txt",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  }
+}
