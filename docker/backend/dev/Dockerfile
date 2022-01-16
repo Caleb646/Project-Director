@@ -20,5 +20,5 @@ RUN apt-get update && apt-get install --yes gcc
 RUN pip install -r ./requirements.txt
 RUN pip install uwsgi
 
-# ENTRYPOINT [ "entrypoint.dev.sh" ]
+# ENTRYPOINT [ "entrypoint.sh" ]
 # CMD uwsgi --http "0.0.0.0:8000" --module project-director.wsgi --master --processes 4 --threads 2

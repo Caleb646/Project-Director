@@ -1,9 +1,12 @@
 FROM node:14.15.3-alpine
 WORKDIR /app/frontend
-# # Copy package.json and package-lock.json before other files
+#Copy package.json and package-lock.json before other files
 COPY /frontend/package*.json /app/frontend/
 RUN npm ci
-# #copy everything that is not in .dockerignore to /app/frontend/
+#Copy everything that is not in .dockerignore to /app/frontend/
 COPY /frontend/ /app/frontend/
-RUN npm run build
-CMD [ "npm", "start" ]
+#Copy entrypoint file
+COPY /docker/frontend/dev/entrypoint.sh /app/frontend/
+#RUN npm run build
+#CMD ["npm", "start"]
+#ENTRYPOINT [ "/app/frontend/entrypoint.sh" ]

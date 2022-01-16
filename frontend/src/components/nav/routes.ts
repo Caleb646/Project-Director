@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8000/api/d1"; //process.env.API_PATH;
+const apiUrl = "http://localhost:8080/api/d1"; //process.env.API_PATH;
 
 export const fPaths = {
   home: "/",

@@ -17,6 +17,6 @@ python manage.py create_test_data
 echo "successfully setup test data"
 python manage.py collectstatic --no-input
 echo "successfully collected static"
-uwsgi --socket=127.0.0.1:8000 --module=project-director.wsgi:application --env DJANGO_SETTINGS_MODULE=project-director.settings --master --processes=4 --threads=2
-echo "successfully configured uwsgi"
+#If using a socket instead of http need to tell nginx where the .sock file is
+uwsgi --http=0.0.0.0:8000 --module=project-director.wsgi:application --env DJANGO_SETTINGS_MODULE=project-director.settings --master --processes=4 --threads=2
 #gunicorn project-director.wsgi:application --bind 0.0.0.0:8000 --workers 1 --threads 1 --log-level debug
