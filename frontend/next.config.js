@@ -4,6 +4,18 @@ module.exports = {
   },
   distDir: "build", //set "next build" output directory
 
+  webpackDevMiddleware: (config) => {
+    /*
+     * Allows for hot reloading while running inside a Docker container.
+     * Polls for changes once a second.
+     */
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+    return config;
+  },
+
   //excludeFile: (str) => /\*.{spec,test}.js/.test(str),
   // async rewrites() {
   //   return [

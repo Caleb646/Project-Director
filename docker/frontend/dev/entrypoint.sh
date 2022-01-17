@@ -1,4 +1,3 @@
 #!/bin/sh
-echo "frontend entrypoint"
-npm run build
-npm start
+echo "Starting frontend dev server"
+npm run --prefix /app/frontend/ dev

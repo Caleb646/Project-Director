@@ -23,7 +23,7 @@ const cards = [
   {
     imagePath: "/testImg.jpeg",
     imageTitle: "RFI Manager",
-    cardTitle: "RFI Manager",
+    cardTitle: "RFI Managerrrrr",
     desc: "A program that allows a company to track all of their rfis in one place.",
     gitHubLink: "#",
     linkToSite: fPaths.rfiManager,
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: "100%",
-    display: "flex",
+    display: "grid",
     flexDirection: "column",
   },
   media: {

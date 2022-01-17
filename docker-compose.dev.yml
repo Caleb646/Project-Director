@@ -1,61 +1,49 @@
 version: "3.8"
 
 services:
-  nginx:
+  dev_frontend:
     #restart: unless-stopped
-    #container_name: nginx_
-    build:
-      context: .
-      dockerfile: /docker/nginx/dev/Dockerfile
-    ports:
-      - 8080:8080
-    volumes: #share these volumes with the backend and frontend
-      - static_volume:/app/django_static
-      - frontend_static_volume:/app/frontend/build/static
-      - frontend_assets_volume:/app/frontend/public
-    depends_on:
-      - frontend
-      - backend
-
-  frontend:
-    #restart: unless-stopped
-    #container_name: frontend_
+    container_name: dev_frontend
     build:
       context: .
       dockerfile: /docker/frontend/dev/Dockerfile
-    entrypoint:
-      - /app/frontend/entrypoint.sh
+    env_file:
+      - ./.env.dev
     volumes:
-      - frontend_static_volume:/app/frontend/build/static
-      - frontend_assets_volume:/app/frontend/public
-    expose:
-      - 3000
+      #map host directory to docker directory to detect changes
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+      - /app/.next
+    ports:
+      #expose port to browser
+      - 3000:3000
     depends_on:
       - backend
 
-  backend:
+  dev_backend:
     #restart: unless-stopped
-    #container_name: backend_
+    container_name: dev_backend
     build:
       context: .
       dockerfile: /docker/backend/dev/Dockerfile
     env_file:
       - ./.env.dev
-    entrypoint:
-      - /app/backend/entrypoint.sh
     volumes:
-      - static_volume:/app/django_static
-    expose:
-      - 8000
+      #map host directory to docker directory to detect changes
+      - ./backend:/app/backend
+      - /usr/local/lib/python3.9/site-packages
+    ports:
+      #so the admin dashboard can be tested
+      - 8000:8000
     depends_on:
       - db
 
   db:
     image: postgres:13
-    container_name: dev-db
+    container_name: dev_db
     #port:
     expose:
-      - 5432
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -64,7 +52,4 @@ services:
       - POSTGRES_DB=${SQL_DATABASE}
 
 volumes:
-  frontend_static_volume:
-  frontend_assets_volume:
-  static_volume:
   postgres_data:

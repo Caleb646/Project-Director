@@ -1,12 +1,12 @@
 FROM node:14.15.3-alpine
-WORKDIR /app/frontend
-#Copy package.json and package-lock.json before other files
-COPY /frontend/package*.json /app/frontend/
-RUN npm ci
 #Copy everything that is not in .dockerignore to /app/frontend/
+#/app/frontend/ is mapped to the host directory /frontend/
+#COPY /frontend/package*.json /app/frontend/
 COPY /frontend/ /app/frontend/
-#Copy entrypoint file
-COPY /docker/frontend/dev/entrypoint.sh /app/frontend/
-#RUN npm run build
-#CMD ["npm", "start"]
-#ENTRYPOINT [ "/app/frontend/entrypoint.sh" ]
+#Copy entrypoint file to a non hosted mapped directory
+COPY /docker/frontend/dev/entrypoint.sh /docker/frontend/entrypoint.sh
+#Install packages
+RUN npm install /app/frontend/
+
+ENTRYPOINT [ "/docker/frontend/entrypoint.sh" ]
+#ENTRYPOINT ["tail", "-f", "/dev/null"] #keeps the docker container terminal open
