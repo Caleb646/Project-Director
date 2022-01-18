@@ -16,5 +16,4 @@ Change the names to .env.dev and .env.staging, making sure to also remove the fi
 Development mode starts the backend at localhost:8000 and the frontend at localhost:3000 using the Django and Nextjs dev servers. This mode will work with both Django and Nextjs hot code reload features. To build and run the Docker container in this mode run the cmd: ./dev-build.bat.
 
 ### Staging Mode
-
-In staging mode the backend will still be at localhost:8000, but it will be ran on a uWSGI server. The frontend will still be at localhost:3000, but running on a node server. Also, there is now a Nginx server. It sits in front of the two proxying requests to each, and it is hosted at localhost:8080.  To build and run the Docker container in this mode run the cmd: ./dev-staging.bat.
+In staging mode the backend will still be at localhost:8000, but it will be ran on a uWSGI server. The frontend will still be at localhost:3000, but running on a node server. Also, there is now a Nginx server. It sits in front of the two proxying requests to each, and it is hosted at localhost:8080. To build and run the Docker container in this mode run the cmd: ./staging-build.bat.
